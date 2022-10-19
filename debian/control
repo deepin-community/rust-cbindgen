@@ -1,0 +1,116 @@
+Source: rust-cbindgen
+Section: utils
+Priority: optional
+Build-Depends: debhelper (>= 12),
+ dh-cargo (>= 24),
+ cargo:native,
+ rustc:native,
+ libstd-rust-dev,
+ librust-clap-2+default-dev,
+ librust-heck-0.3+default-dev,
+ librust-indexmap-1+default-dev,
+ librust-log-0.4+default-dev,
+ librust-proc-macro2-1+default-dev,
+ librust-quote-1+default-dev,
+ librust-serde-1+derive-dev (>= 1.0.103-~~),
+ librust-serde-json-1+default-dev,
+ librust-syn-1+clone-impls-dev (>= 1.0.3-~~),
+ librust-syn-1+extra-traits-dev (>= 1.0.3-~~),
+ librust-syn-1+full-dev (>= 1.0.3-~~),
+ librust-syn-1+parsing-dev (>= 1.0.3-~~),
+ librust-syn-1+printing-dev (>= 1.0.3-~~),
+ librust-tempfile-3+default-dev,
+ librust-toml-0.5+default-dev,
+ help2man,
+ librust-serial-test-dev,
+ cython3
+Maintainer: Debian Rust Maintainers <pkg-rust-maintainers@alioth-lists.debian.net>
+Uploaders:
+ Sylvestre Ledru <sylvestre@debian.org>
+Standards-Version: 4.5.1
+Vcs-Git: https://salsa.debian.org/rust-team/debcargo-conf.git [src/cbindgen]
+Vcs-Browser: https://salsa.debian.org/rust-team/debcargo-conf/tree/master/src/cbindgen
+Rules-Requires-Root: no
+
+Package: librust-cbindgen-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-heck-0.3+default-dev,
+ librust-indexmap-1+default-dev,
+ librust-log-0.4+default-dev,
+ librust-proc-macro2-1+default-dev,
+ librust-quote-1+default-dev,
+ librust-serde-1+derive-dev (>= 1.0.103-~~),
+ librust-serde-json-1+default-dev,
+ librust-syn-1+clone-impls-dev (>= 1.0.3-~~),
+ librust-syn-1+extra-traits-dev (>= 1.0.3-~~),
+ librust-syn-1+full-dev (>= 1.0.3-~~),
+ librust-syn-1+parsing-dev (>= 1.0.3-~~),
+ librust-syn-1+printing-dev (>= 1.0.3-~~),
+ librust-tempfile-3+default-dev,
+ librust-toml-0.5+default-dev
+Recommends:
+ librust-cbindgen+clap-dev (= ${binary:Version})
+Provides:
+ librust-cbindgen-0-dev (= ${binary:Version}),
+ librust-cbindgen-0.20-dev (= ${binary:Version}),
+ librust-cbindgen-0.20.0-dev (= ${binary:Version})
+Description: Generating C bindings to Rust code - Rust source code
+ This package contains the source for the Rust cbindgen crate, packaged by
+ debcargo for use with cargo and dh-cargo.
+
+Package: librust-cbindgen+clap-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-cbindgen-dev (= ${binary:Version}),
+ librust-clap-2+default-dev
+Provides:
+ librust-cbindgen+default-dev (= ${binary:Version}),
+ librust-cbindgen-0+clap-dev (= ${binary:Version}),
+ librust-cbindgen-0+default-dev (= ${binary:Version}),
+ librust-cbindgen-0.20+clap-dev (= ${binary:Version}),
+ librust-cbindgen-0.20+default-dev (= ${binary:Version}),
+ librust-cbindgen-0.20.0+clap-dev (= ${binary:Version}),
+ librust-cbindgen-0.20.0+default-dev (= ${binary:Version})
+Description: Generating C bindings to Rust code - feature "clap" and 1 more
+ This metapackage enables feature "clap" for the Rust cbindgen crate, by pulling
+ in any additional dependencies needed by that feature.
+ .
+ Additionally, this package also provides the "default" feature.
+
+Package: cbindgen
+Architecture: any
+Multi-Arch: allowed
+Section: utils
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ ${cargo:Depends}
+Recommends:
+ ${cargo:Recommends}
+Suggests:
+ ${cargo:Suggests}
+Provides:
+ ${cargo:Provides}
+Built-Using: ${cargo:Built-Using}
+XB-X-Cargo-Built-Using: ${cargo:X-Cargo-Built-Using}
+Description: Generates C bindings from Rust code
+ cbindgen can be used to generate C bindings for Rust code.
+ It is currently being developed to support creating bindings for
+ WebRender (by Mozilla for Firefox), but has been designed to support
+ any project.
+ .
+ Features:
+ .
+  * Builds bindings for a crate, its mods, its dependent crates, and their mods
+  * Only the necessary types for exposed functions are given bindings
+  * Can specify annotations for controlling some aspects of binding
+  * Support for generic structs and unions
+  * Support for exporting constants and statics
+  * Customizable formatting, can be used in C or C++ projects
+  * Support for generating #ifdef's for #[cfg] attributes
+  * Support for #[repr(sized)] tagged enum's
